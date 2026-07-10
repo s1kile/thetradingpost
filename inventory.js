@@ -1,11 +1,32 @@
-const sheetLink = "https://docs.google.com/spreadsheets/d/1yZTUAi0RI9jyfHA_8PxdJhCGAix7roLe-0you8YGP2A/export?format=csv&t=" + new Date().getTime();
-
 let itemList = []; 
 let category = "Others"; 
 
+function blockAction(e, message) {
+    e.preventDefault();
+    alert(message);
+}
+
+function setupProtection() {
+    document.addEventListener("contextmenu", (e) => blockAction(e, "pls dont copy my code I work hard on this"));
+    document.addEventListener("keydown", (e) => {
+        const isDevToolsShortcut =
+            (e.key === "F12") ||
+            (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i")) ||
+            (e.metaKey && e.altKey && (e.key === "I" || e.key === "i")) ||
+            (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "j")) ||
+            (e.metaKey && e.altKey && (e.key === "J" || e.key === "j")) ||
+            (e.ctrlKey && e.key === "u") ||
+            (e.metaKey && e.altKey && e.key === "u");
+
+        if (isDevToolsShortcut) {
+            blockAction(e, "pls dont copy my code I work hard on this");
+        }
+    });
+}
+
 async function fetchInventory() {
     try {
-        const response = await fetch(sheetLink);
+        const response = await fetch("/api/inventory");
         const rawText = await response.text();
         
         const lines = rawText.split("\n").map(row => row.trim()).filter(row => row.length > 0);
@@ -115,4 +136,5 @@ function setupSearch() {
     });
 }
 
+setupProtection();
 fetchInventory();
