@@ -1,5 +1,6 @@
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1yZTUAi0RI9jyfHA_8PxdJhCGAix7roLe-0you8YGP2A/export?format=csv";
 let itemList = []; 
-let category = "Others"; 
+let category = "All"; 
 
 function blockAction(e, message) {
     e.preventDefault();
@@ -7,7 +8,7 @@ function blockAction(e, message) {
 }
 
 function setupProtection() {
-    document.addEventListener("contextmenu", (e) => blockAction(e, "pls dont copy my code I work hard on this"));
+    document.addEventListener("contextmenu", (e) => blockAction(e, "Unable to open dev tools. Please respect the work put into this site."));
     document.addEventListener("keydown", (e) => {
         const isDevToolsShortcut =
             (e.key === "F12") ||
@@ -19,16 +20,39 @@ function setupProtection() {
             (e.metaKey && e.altKey && e.key === "u");
 
         if (isDevToolsShortcut) {
-            blockAction(e, "pls dont copy my code I work hard on this");
+            blockAction(e, "Unable to open dev tools. Please respect the work put into this site.");
         }
     });
 }
 
+async function fetchInventoryFromSheetDirect() {
+    const timestamp = Date.now();
+    const url = `${SHEET_CSV_URL}&t=${timestamp}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        throw new Error(`Sheet fetch failed with status ${response.status}`);
+    }
+
+    return response.text();
+}
+
 async function fetchInventory() {
     try {
-        const response = await fetch("/api/inventory");
-        const rawText = await response.text();
+        let rawText;
         
+        try {
+            const response = await fetch("/api/inventory");
+            if (response.ok) {
+                rawText = await response.text();
+            } else {
+                throw new Error(`API responded ${response.status}`);
+            }
+        } catch (apiError) {
+            console.warn("API inventory fetch failed, falling back to direct sheet fetch:", apiError);
+            rawText = await fetchInventoryFromSheetDirect();
+        }
+
         const lines = rawText.split("\n").map(row => row.trim()).filter(row => row.length > 0);
         itemList = []; 
         
@@ -72,7 +96,9 @@ function renderGrid() {
     const matches = itemList.filter(item => {
         let isCorrectCategory = false;
         
-        if (category === "Valentines") {
+        if (category === "All") {
+            isCorrectCategory = true;
+        } else if (category === "Valentines") {
             isCorrectCategory = item.event.startsWith("Valentine");
         } else if (category === "St.Patricks") {
             isCorrectCategory = item.event.startsWith("St. Patrick");
