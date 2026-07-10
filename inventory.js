@@ -1,7 +1,7 @@
 const sheetLink = "https://docs.google.com/spreadsheets/d/1yZTUAi0RI9jyfHA_8PxdJhCGAix7roLe-0you8YGP2A/export?format=csv&t=" + new Date().getTime();
 
 let itemList = []; 
-let category = "Valentines"; 
+let category = "Others"; 
 
 async function fetchInventory() {
     try {
