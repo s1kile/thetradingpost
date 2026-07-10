@@ -1,6 +1,6 @@
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1yZTUAi0RI9jyfHA_8PxdJhCGAix7roLe-0you8YGP2A/export?format=csv";
 let itemList = []; 
-let category = "All"; 
+let category = "Others"; 
 
 function blockAction(e, message) {
     e.preventDefault();
@@ -96,9 +96,7 @@ function renderGrid() {
     const matches = itemList.filter(item => {
         let isCorrectCategory = false;
         
-        if (category === "All") {
-            isCorrectCategory = true;
-        } else if (category === "Valentines") {
+        if (category === "Valentines") {
             isCorrectCategory = item.event.startsWith("Valentine");
         } else if (category === "St.Patricks") {
             isCorrectCategory = item.event.startsWith("St. Patrick");
