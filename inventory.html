@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - The Flee Store</title> 
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="container-inventory">
+        <header class="header-banner">
+            <h1>The Flee Store</h1>
+        </header>
+
+        <main class="main-content">
+            <section class="inventory-card">
+                <div class="inventory-heading">
+                    <h2>My Inventory</h2>
+                    <p class="status-info">Updated: Just Now</p> 
+                </div>
+
+                <div class="content-body">
+                    <p style="margin-bottom: 16px;">Here is what I currently have available for trade. Feel free to reach out with fair offers!</p>
+                    
+                    <div class="controls-section">
+                        <input type="text" id="searchBar" class="inventory-search" placeholder="🔍 Search hammers or gems...">
+                        <div class="category-filters" id="categoryContainer">
+                            <button class="filter-btn" onclick="filterEvent(event, 'Valentines')">Valentines</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Lunar New Years')">Lunar New Years</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'St.Patricks')">St.Patrick's</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Easter')">Easter</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Spring')">Spring</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Summer')">Summer</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Anniversary')">Anniversary</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Autumn')">Autumn</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Halloween')">Halloween</button>
+                            <button class="filter-btn" onclick="filterEvent(event, 'Christmas')">Christmas</button>
+                            <button class="filter-btn active" onclick="filterEvent(event, 'Others')">Others</button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="item-grid" id="itemGrid">
+                        <!-- -->
+                    </div>
+                </div>
+
+                <p class="inquiries" style="text-align: center;">Message me on Facebook Messenger for inquiries and purchases.</p>
+            </section>
+        </main>
+
+        <footer class="bottom-bar">
+            <a href="index.html" class="nav-btn">About</a>
+            <a href="inventory.html" class="nav-btn">Inventory</a>
+            <a href="proofs.html" class="nav-btn">Proofs</a>
+        </footer>
+    </div>
+
+    <script src="inventory.js"></script>
+</body>
+</html>
