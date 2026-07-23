@@ -101,7 +101,7 @@ body {
 }
 
 
-.socials, .payment-methods {
+.socials, .tos {
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -135,7 +135,7 @@ hr {
     background-color: #022409;
 }
 
-.payment-methods li {
+.tos li {
     padding: 8px 16px;
     border: 2px solid rgb(117, 117, 117);
     font-size: 0.95rem;
@@ -145,6 +145,26 @@ hr {
     color: white;
     background-color: var(--green);
     text-shadow: 1px 1px 0px var(--dark-text);
+    margin-top: 20px;
+}
+
+.tos a {
+    text-decoration: none;
+    color: white;
+}
+
+.payment-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payment-table td {
+    border: 1px solid var(--fire);
+    padding: 10px;
+    text-align: center;
+    background-color: var(--dawn-pink);
+    color: var(--dark-text);
+    font-weight: bold;
 }
 
 .content-card {
